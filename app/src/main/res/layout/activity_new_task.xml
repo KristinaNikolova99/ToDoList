@@ -132,7 +132,7 @@
                 android:textColorHint="#B5B5B5"
                 android:textColor="#243AAA"
                 android:maxLength="10"
-                android:hint="Timeline"
+                android:hint="yyyy-MM-dd"
                 android:layout_width="match_parent"
                 android:layout_height="55dp" />
 

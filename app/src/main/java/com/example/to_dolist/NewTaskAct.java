@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.to_dolist.Interfaces.DateValidator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,12 +56,18 @@ public class NewTaskAct extends AppCompatActivity {
                 String s2 = descdoes.getText().toString();
                 String s3 = datedoes.getText().toString();
                 //insert data to database
+                DateValidator validator = new DateFormatValidator("yyyy-MM-dd");
+
                 if (s1.equals("") || s2.equals("") || s3.equals("")){
 
                     Toast.makeText(getApplicationContext(), "Fields are required", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }
+                if (!validator.isValid(s3)){
+                    Toast.makeText(getApplicationContext(), "Wrong date format!", Toast.LENGTH_SHORT).show();
+                }
 
+                else {
 
                     reference.addValueEventListener(new ValueEventListener() {
                     @Override

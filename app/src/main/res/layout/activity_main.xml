@@ -30,7 +30,7 @@
                     android:id="@+id/titlepage"
                     android:layout_marginTop="30dp"
                     android:textSize="36sp"
-                    android:textColor="#FFF"
+                    android:textColor="#FFFFFF"
                     android:text="My To-Do List"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -38,9 +38,8 @@
                 <TextView
                     android:id="@+id/subtitlepage"
                     android:textSize="18sp"
-                    android:textColor="#9B9797"
+                    android:textColor="#FFFFFF"
                     android:layout_marginTop="8dp"
-                    android:text="Stop Talking And Start Doing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -81,7 +80,7 @@
 
     <TextView
         android:id="@+id/endpage"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="#9B9797"
         android:layout_marginTop="20dp"
         android:text="No More To-Do"

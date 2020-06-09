@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/bgitemdoes"
@@ -18,7 +18,7 @@
             android:layout_marginTop="19dp"
             android:textSize="22sp"
             android:textColor="#243AAA"
-            android:text="Buy whiskas"
+            android:text="Study"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -27,26 +27,33 @@
             android:textSize="18sp"
             android:textColor="#ADADAD"
             android:layout_marginTop="8dp"
-            android:text="Nearly market good to"
+            android:text="Mathematics"
             android:layout_width="210dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/datedoes"
             android:textSize="17sp"
             android:textColor="#7AD115"
-            android:layout_marginTop="8dp"
-            android:text="Tomorrow"
+            android:layout_marginTop="40dp"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/datedoes2"
+        android:textSize="17sp"
+        android:textColor="#D5281B"
+        android:layout_marginTop="40dp"
+        android:gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+
+
+</RelativeLayout>

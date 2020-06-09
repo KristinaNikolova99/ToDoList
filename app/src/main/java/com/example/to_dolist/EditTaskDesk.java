@@ -17,6 +17,7 @@ package com.example.to_dolist;
         import android.widget.EditText;
         import android.widget.Toast;
 
+        import com.example.to_dolist.Interfaces.DateValidator;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.database.DataSnapshot;
@@ -29,7 +30,7 @@ public class EditTaskDesk extends AppCompatActivity {
 
     EditText titleDoes, descDoes, dateDoes;
     Button btnSaveUpdate, btnDelete;
-    DatabaseReference reference,reference2;
+    DatabaseReference reference, reference2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,65 +58,83 @@ public class EditTaskDesk extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 confirmDialogDemo();
+            }
+        });
 
-                    }
-
-                });
-
+        //insert data to database
         //make an event for button
-        btnSaveUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("titledoes").setValue(titleDoes.getText().toString());
-                        dataSnapshot.getRef().child("descdoes").setValue(descDoes.getText().toString());
-                        dataSnapshot.getRef().child("datedoes").setValue(dateDoes.getText().toString());
-                        dataSnapshot.getRef().child("keydoes").setValue(keykeyDoes);
-                        Intent a = new Intent(EditTaskDesk.this,MainActivity.class);
-                        startActivity(a);
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            btnSaveUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String s3 = dateDoes.getText().toString();
+                    String s2 = descDoes.getText().toString();
+                    String s1 = titleDoes.getText().toString();
+                    DateValidator validator = new DateFormatValidator("yyyy-MM-dd");
+                    if (s1.equals("") || s2.equals("") || s3.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Fields are required", Toast.LENGTH_SHORT).show();
                     }
+                    if (!validator.isValid(s3)) {
+                        Toast.makeText(getApplicationContext(), "Wrong date format!", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                dataSnapshot.getRef().child("titledoes").setValue(titleDoes.getText().toString());
+                                dataSnapshot.getRef().child("descdoes").setValue(descDoes.getText().toString());
+                                dataSnapshot.getRef().child("datedoes").setValue(dateDoes.getText().toString());
+                                dataSnapshot.getRef().child("keydoes").setValue(keykeyDoes);
+                                Intent a = new Intent(EditTaskDesk.this, MainActivity.class);
+                                startActivity(a);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
                 });
-            }
-        });
-    }
-    private void confirmDialogDemo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("ALERT!");
-        builder.setMessage("Are you sure u wanna delete this?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-                reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Intent a = new Intent(EditTaskDesk.this, MainActivity.class);
-                            startActivity(a);
-                            Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                        } else{
-                            Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+    }
+
+        private void confirmDialogDemo () {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("ALERT!");
+            builder.setMessage("Are you sure u wanna delete this?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    reference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Intent a = new Intent(EditTaskDesk.this, MainActivity.class);
+                                startActivity(a);
+                                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "You've changed your mind to delete", Toast.LENGTH_SHORT).show();
-            }
-        });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(getApplicationContext(), "You've changed your mind to delete", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        builder.show();
-    }
+            builder.show();
+        }
+
 }
+
+
+

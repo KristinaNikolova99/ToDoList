@@ -19,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         titlepage = findViewById(R.id.titlepage);
         subtitlepage = findViewById(R.id.subtitlepage);
         endpage = findViewById(R.id.endpage);
+
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String format = formatter.format(today);
+        final TextView textViewToChange = (TextView) findViewById(R.id.subtitlepage);
+        textViewToChange.setText("Today: " + format);
 
         btnAddNew = findViewById(R.id.btnAddNew);
 

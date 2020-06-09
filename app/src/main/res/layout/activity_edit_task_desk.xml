@@ -69,7 +69,7 @@
                 android:paddingLeft="12dp"
                 android:textColorHint="#B5B5B5"
                 android:textColor="#243AAA"
-                android:maxLength="22"
+                android:maxLength="16"
                 android:hint="What needs to be done?"
                 android:layout_width="match_parent"
                 android:layout_height="55dp" />
@@ -132,7 +132,7 @@
                 android:textColorHint="#B5B5B5"
                 android:textColor="#243AAA"
                 android:maxLength="10"
-                android:hint="Timeline"
+                android:hint="yyyy-MM-dd"
                 android:layout_width="match_parent"
                 android:layout_height="55dp" />
 

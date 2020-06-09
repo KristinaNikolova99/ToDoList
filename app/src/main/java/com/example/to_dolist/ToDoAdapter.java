@@ -2,6 +2,7 @@ package com.example.to_dolist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
 
     Context context;
+    Date date;
     ArrayList<MyToDoList> myToDoList;
 
     public ToDoAdapter(Context c, ArrayList<MyToDoList> p) {
@@ -32,12 +36,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         myViewHolder.titledoes.setText(myToDoList.get(i).getTitledoes());
         myViewHolder.descdoes.setText(myToDoList.get(i).getDescdoes());
-        myViewHolder.datedoes.setText(myToDoList.get(i).getDatedoes());
+
 
         final String getTitleDoes = myToDoList.get(i).getTitledoes();
         final String getDescDoes = myToDoList.get(i).getDescdoes();
         final String getDateDoes = myToDoList.get(i).getDatedoes();
         final String getKeyDoes = myToDoList.get(i).getKeydoes();
+
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String format = formatter.format(today);
+        int b = format.compareTo(getDateDoes);
+
+        if(b <= 0){
+            myViewHolder.datedoes.setText(myToDoList.get(i).getDatedoes());}
+        else {
+            myViewHolder.datedoes2.setText(myToDoList.get(i).getDatedoes());
+        }
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +73,17 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         return myToDoList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titledoes, descdoes, datedoes, keydoes;
+        TextView titledoes, descdoes, datedoes, keydoes,datedoes2;
 
          public MyViewHolder(@NonNull View itemView) {
              super(itemView);
              titledoes = (TextView) itemView.findViewById(R.id.titledoes);
              descdoes = (TextView) itemView.findViewById(R.id.descdoes);
              datedoes = (TextView) itemView.findViewById(R.id.datedoes);
+             datedoes2 = (TextView) itemView.findViewById(R.id.datedoes2);
+
 
 
          }
